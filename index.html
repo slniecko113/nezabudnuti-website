@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nezabudnutí.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">nezabudnutí.</h1>
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="#about" class="nav-link" data-key="nav.about">O platforme</a></li>
+                        <li><a href="#committee" class="nav-link" data-key="nav.committee">Výkonný výbor</a></li>
+                        <li><a href="#join" class="nav-link" data-key="nav.join">Pridajte sa k nám</a></li>
+                        <li><a href="#members" class="nav-link" data-key="nav.members">Členovia</a></li>
+                        <li><a href="#projects" class="nav-link" data-key="nav.projects">Projekty</a></li>
+                        <li><a href="#contact" class="nav-link" data-key="nav.contact">Kontakt</a></li>
+                    </ul>
+                    <div class="nav-actions">
+                        <button class="btn btn-primary" data-key="nav.support">Podporte nás</button>
+                        <div class="language-toggle">
+                            <span id="lang-sk" class="lang-option active" onclick="changeLanguage('sk')">SK</span>
+                            |
+                            <span id="lang-en" class="lang-option" onclick="changeLanguage('en')">EN</span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2 class="hero-title" data-key="hero.title">Spájame a ochraňujeme tých, ktorí robia rozdiel v teréne</h2>
+            <p class="hero-subtitle" data-key="hero.subtitle">Pomáhame tým, ktorí pomáhajú. Vytvárame platformu pre dôstojnú a dostupnú starostlivosť.</p>
+            <div class="button-group">
+                <button class="btn btn-primary" data-key="buttons.joinUs">Pridajte sa k nám</button>
+                <button class="btn btn-secondary" data-key="buttons.learnMore">Zistite viac</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h3 class="section-title" data-key="about.title">Kto sme?</h3>
+            <div class="divider"></div>
+            <p class="section-description" data-key="about.content">Sme Platforma pomáhajúcich organizácií - nezabudnutí. Vznikli sme ako strešný priestor pre mimovládne organizácie, ktoré denne pomáhajú ľuďom v zdravotnej a sociálnej oblasti. Pracujeme na tom, aby systém starostlivosti na Slovensku nebol len o improvizácii a dobrej vôli – ale o dôstojnosti, dostupnosti a udržateľnosti.</p>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4 class="subsection-title" data-key="vision.title">Naša vízia</h4>
+                    <div class="divider-small"></div>
+                    <p data-key="vision.content">Veríme v spoločnosť, kde pomoc nie je výnimkou, ale právom. Kde každý človek má prístup k starostlivosti – bez ohľadu na to, kde žije či koľko má rokov.</p>
+                </div>
+                <div class="column">
+                    <h4 class="subsection-title" data-key="values.title">Naše hodnoty</h4>
+                    <div class="divider-small"></div>
+                    <ul class="values-list">
+                        <li data-key="values.list.0">Ľudskosť - nie ako slovo, ale ako každodenná prax.</li>
+                        <li data-key="values.list.1">Odbornosť - rozhodnutia majú stáť na skúsenostiach z terénu a faktoch, nie na dojmoch.</li>
+                        <li data-key="values.list.2">Dialóg - skutočné zmeny nevznikajú v tichu, ale v rozhovore.</li>
+                        <li data-key="values.list.3">Partnerstvo - spájame neziskový, verejný aj súkromný sektor.</li>
+                        <li data-key="values.list.4">Odvaha - hovoriť aj o tom, čo iní obchádzajú.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="activities-box">
+                <h4 class="activities-title" data-key="activity.title">Naša činnosť</h4>
+                <div class="divider-small centered"></div>
+                <h5 class="activities-subtitle" data-key="activity.subtitle">Spájame hlasy. Navrhujeme riešenia. Meníme systém.</h5>
+                <p data-key="activity.content">Spájame mimovládne organizácie. Vytvárame a navrhujeme riešenia. Presadzujeme systémové zmeny. Platforma pomáhajúcich organizácií – nezabudnutí., vznikla ako odpoveď na mlčanie tam, kde malo zaznieť silné slovo. Ako reakcia na osamelosť tam, kde mal byť dialóg. Ako snaha spojiť organizácie, ktorým záleží na dôstojnosti, prístupe k starostlivosti a spravodlivosti v systéme.</p>
+                <h5 class="whatwedo-title" data-key="whatWeDo.title">Čo robíme?</h5>
+                <ul class="whatwedo-list">
+                    <li data-key="whatWeDo.list.0">prepájame organizácie v sociálnej a zdravotnej oblasti</li>
+                    <li data-key="whatWeDo.list.1">prinášame odborné argumenty, ktoré formujú verejnú diskusiu</li>
+                    <li data-key="whatWeDo.list.2">formulujeme systémové návrhy a vstupujeme do legislatívnych procesov</li>
+                    <li data-key="whatWeDo.list.3">chránime priestor pre slobodnú, odbornú a hodnotovú činnosť mimovládnych organizácií</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="achievements-section">
+        <div class="container">
+            <h3 class="section-title" data-key="achievements.title">Spolu sme už dokázali</h3>
+            <div class="divider"></div>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <h4 class="achievement-title" data-key="achievements.items.0.title">Hospicová reforma</h4>
+                    <h5 class="achievement-subtitle" data-key="achievements.items.0.subtitle">Naštartovali a dotiahli sme systémovú zmenu vo financovaní hospicovej starostlivosti.</h5>
+                    <p class="achievement-content" data-key="achievements.items.0.content">Dlhodobo sme upozorňovali na to, že výška úhrady za lôžkodňový výkon v hospicoch nepokrývala reálne náklady na starostlivosť - ani personálne, ani prevádzkové. Vďaka spoločnému úsiliu odborníkov, organizácií a ľudí z praxe sa podarilo otvoriť dialóg, ktorý viedol k navýšeniu tejto úhrady zo 100 na 230 eur za lôžkodeň.</p>
+                </div>
+                <div class="achievement-card">
+                    <h4 class="achievement-title" data-key="achievements.items.1.title">Spojili sme 40 organizácií voči zákonu o MVO</h4>
+                    <p class="achievement-content" data-key="achievements.items.1.content">Pri kampani proti prijatiu návrhu zákona o mimovládnych neziskových organizáciách sme spojili približne 40 pomáhajúcich organizácií, ktoré sa rozhodli spoločne reagovať na tému, ktorá sa ich priamo dotýka.</p>
+                </div>
+                <div class="achievement-card">
+                    <h4 class="achievement-title" data-key="achievements.items.2.title">Aktívne sme vystúpili proti zavedeniu tzv. transakčnej dane pre MVO</h4>
+                    <p class="achievement-content" data-key="achievements.items.2.content">Aj vďaka spoločnej intervencii a advokácii sa podarilo otvoriť verejnú diskusiu o dopadoch tohto opatrenia na služby, ktoré mnohí ľudia denne potrebujú.</p>
+                </div>
+                <div class="achievement-card">
+                    <h4 class="achievement-title" data-key="achievements.items.3.title">Zastali sme sa princípu 2 % z dane pre MVO</h4>
+                    <p class="achievement-content" data-key="achievements.items.3.content">V roku 2024 sme sa podieľali na komunikácii a koordinácii úsilia o zachovanie mechanizmu asignácie 2% ako stabilného a spravodlivého zdroja podpory naprieč celým sektorom.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="join-section">
+        <div class="container">
+            <h3 class="section-title" data-key="joinUs.title">Pomáhate? Nemusíte na to byť sami.</h3>
+            <div class="divider"></div>
+            
+            <p class="section-description" data-key="joinUs.subtitle">Ak ste občianske združenie, nezisková organizácia, komunitná iniciatíva, nadácia či odborná skupina, ktorá denne podáva pomocnú ruku, spoločne dokážeme viac.</p>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4 class="subsection-title" data-key="joinUs.content">Platforma pomáhajúcich organizácií – nezabudnutí. vytvára priestor pre:</h4>
+                    <ul class="join-list">
+                        <li data-key="joinUs.list.0">spoločné témy v kľúčových verejných a odborných diskusiách</li>
+                        <li data-key="joinUs.list.1">výmenu poznatkov, skúseností a dát</li>
+                        <li data-key="joinUs.list.2">spoločné advokačné kampane a legislatívne iniciatívy</li>
+                        <li data-key="joinUs.list.3">sieť participantov, ktorí pracujú pre zmeny, nie na rezignácii</li>
+                    </ul>
+                    
+                    <h4 class="subsection-title" data-key="joinUs.joinForces.title">Spojme sily:</h4>
+                    <ul class="join-list">
+                        <li data-key="joinUs.joinForces.list.0">aby naša práca mala väčší dosah</li>
+                        <li data-key="joinUs.joinForces.list.1">aby sa o potrebách ľudí, ktorým pomáhame, hovorilo nahlas</li>
+                        <li data-key="joinUs.joinForces.list.2">aby starostlivosť nebola len súkromná vec, ale spoločná priorita</li>
+                    </ul>
+                </div>
+                
+                <div class="column">
+                    <div class="support-box">
+                        <h4 class="support-title" data-key="whySupport.title">Prečo nás podporiť?</h4>
+                        <p class="support-content" data-key="whySupport.content">Vaša podpora znamená, že pomoc na Slovensku nebude len reakciou na krízu, ale premysleným, funkčným systémom. Spolu s vami dokážeme navrhovať a presadzovať systémové mechanizmy, ktoré menia osudy a vytvárajú priestor nielen pre jednotlivcov, ale aj celých rodín a komunít k dostupnejšej zdravotnej a sociálnej starostlivosti a informovanosti.</p>
+                        <div class="tagline">
+                            <h5 data-key="whySupport.tagline">Pomáhame tým, ktorí pomáhajú.</h5>
+                            <div class="divider-small"></div>
+                        </div>
+                        <button class="btn btn-primary" data-key="nav.support">Podporte nás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="members" class="members-section">
+        <div class="container">
+            <h3 class="section-title" data-key="members.title">Naše členské organizácie</h3>
+            <div class="divider"></div>
+            
+            <div class="members-grid">
+                <!-- Member cards will be generated by JavaScript -->
+            </div>
+            
+            <div class="button-center">
+                <button class="btn btn-primary" data-key="buttons.addOrganization">Pridať organizáciu</button>
+                <button class="btn btn-secondary" data-key="buttons.viewAll">Zobraziť všetky</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="events-section">
+        <div class="container">
+            <div class="two-column">
+                <div class="column events-column">
+                    <h4 class="subsection-title" data-key="events.title">Najbližšie udalosti</h4>
+                    <div class="divider-small"></div>
+                    
+                    <div class="events-list">
+                        <!-- Events will be generated by JavaScript -->
+                    </div>
+                    
+                    <button class="btn btn-view-all" data-key="events.viewAll">Zobraziť všetky udalosti →</button>
+                </div>
+                
+                <div class="column newsletter-column">
+                    <div class="newsletter-box">
+                        <h4 class="newsletter-title" data-key="footer.newsletter">Newsletter</h4>
+                        <div class="divider-small"></div>
+                        <p class="newsletter-text" data-key="footer.newsletterText">Prihláste sa na odber noviniek z oblasti zdravotnej a sociálnej starostlivosti.</p>
+                        <input type="email" class="email-input" placeholder="Váš email" data-placeholder-key="footer.emailPlaceholder">
+                        <button class="btn btn-newsletter" data-key="footer.subscribe">Prihlásiť sa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 class="footer-logo">nezabudnutí.</h3>
+                    <p class="footer-description">Platforma pomáhajúcich organizácií - nezabudnutí. Spájame a ochraňujeme tých, ktorí robia rozdiel v teréne.</p>
+                    <div class="footer-operator" data-key="footer.operatorInfo">Prevádzkovateľ a správca: Urbana, Račianska 1579/88B, 831 02 Bratislava-Nové Mesto</div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4 class="footer-heading" data-key="footer.contact">Kontakt</h4>
+                    <ul class="footer-contact-list">
+                        <li>info@nezabudnuti.org</li>
+                        <li>+421 123 456 789</li>
+                        <li data-key="footer.address">Bratislava, Slovensko</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading" data-key="nav.about">O platforme</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#about" data-key="nav.about">O platforme</a></li>
+                        <li><a href="#join" data-key="nav.join">Pridajte sa k nám</a></li>
+                        <li><a href="#members" data-key="nav.members">Členovia</a></li>
+                        <li><a href="#" data-key="footer.gdpr">GDPR a cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-copyright" data-key="footer.copyright">© 2025 nezabudnutí. Všetky práva vyhradené.</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
