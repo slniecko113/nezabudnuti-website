@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nezabudnutí.</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
-                <h1 class="logo">nezabudnutí.</h1>
+                <div class="logo-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDQwMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRTdEMkU3Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIzNiIgZm9udC13ZWlnaHQ9IjQwMCIgZmlsbD0iI0Q5N0M3QyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+bmV6YWJ1ZG51dMOtLjwvdGV4dD4KPHR5c3QgeD0iMjAwIiB5PSI4NSIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNDAwIiBmaWxsPSIjRDk3QzdDIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5QbGF0Zm9ybWEgcG9tw6FoYWrDumNpY2ggb3JnYW5pesOhY2nDrTwvdGV4dD4KPC9zdmc+" alt="nezabudnutí." class="logo-image">
+                </div>
                 <nav>
                     <ul class="main-nav">
                         <li><a href="#about" class="nav-link" data-key="nav.about">O platforme</a></li>
@@ -22,12 +24,66 @@
                         <li><a href="#contact" class="nav-link" data-key="nav.contact">Kontakt</a></li>
                     </ul>
                     <div class="nav-actions">
-                        <button class="btn btn-primary" data-key="nav.support">Podporte nás</button>
+                        <button class="btn btn-primary btn-large" data-key="nav.support" onclick="showIBAN()">Podporte nás</button>
                         <div class="language-toggle">
                             <span id="lang-sk" class="lang-option active" onclick="changeLanguage('sk')">SK</span>
                             |
                             <span id="lang-en" class="lang-option" onclick="changeLanguage('en')">EN</span>
                         </div>
+                    
+                    <div class="donation-info">
+                        <h4 class="footer-heading">Podporte nás</h4>
+                        <p class="donation-text">IBAN pre finančnú podporu:</p>
+                        <p class="iban-number" id="donation-iban">SK5609000000005232852272</p>
+                        <button class="btn-copy" onclick="copyIBAN()">Kopírovať IBAN</button>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4 class="footer-heading" data-key="footer.contact">Kontakt</h4>
+                    <ul class="footer-contact-list">
+                        <li><strong>Všeobecný kontakt:</strong><br>info@platformanezabudnuti.sk</li>
+                        <li><strong>Kontakt pre médiá:</strong><br>bariak@platformanezabudnuti.sk<br>+421 948 316 464</li>
+                        <li><strong>Kontakt pre donorov:</strong><br>fekiacova@platformanezabudnuti.sk<br>+421 948 953 293</li>
+                        <li data-key="footer.address">Bratislava, Slovensko</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading" data-key="nav.about">O platforme</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#about" data-key="nav.about">O platforme</a></li>
+                        <li><a href="#join" data-key="nav.join">Pridajte sa k nám</a></li>
+                        <li><a href="#members" data-key="nav.members">Členovia</a></li>
+                        <li><a href="#" data-key="footer.gdpr">GDPR a cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-copyright" data-key="footer.copyright">© 2025 Platforma pomáhajúcich organizácií - nezabudnutí. Všetky práva vyhradené.</div>
+            
+            <!-- IBAN Modal -->
+            <div id="iban-modal" class="modal" onclick="closeModal(event)">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h3>Podporte nás</h3>
+                    <p>Vaša finančná podpora nám umožňuje pokračovať v dôležitej práci pre pomáhajúce organizácie.</p>
+                    <div class="iban-display">
+                        <p><strong>IBAN:</strong></p>
+                        <div class="iban-box">
+                            <span id="modal-iban">SK5609000000005232852272</span>
+                            <button class="btn-copy-modal" onclick="copyIBAN()">Kopírovať</button>
+                        </div>
+                    </div>
+                    <p><small>Ďakujeme za vašu podporu!</small></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
                     </div>
                 </nav>
             </div>
@@ -39,8 +95,8 @@
             <h2 class="hero-title" data-key="hero.title">Spájame a ochraňujeme tých, ktorí robia rozdiel v teréne</h2>
             <p class="hero-subtitle" data-key="hero.subtitle">Pomáhame tým, ktorí pomáhajú. Vytvárame platformu pre dôstojnú a dostupnú starostlivosť.</p>
             <div class="button-group">
-                <button class="btn btn-primary" data-key="buttons.joinUs">Pridajte sa k nám</button>
-                <button class="btn btn-secondary" data-key="buttons.learnMore">Zistite viac</button>
+                <button class="btn btn-primary btn-large" data-key="buttons.joinUs" onclick="openJoinForm()">Pridajte sa k nám</button>
+                <button class="btn btn-secondary btn-large" data-key="buttons.learnMore" onclick="scrollToAbout()">Zistite viac</button>
             </div>
         </div>
     </section>
@@ -93,20 +149,20 @@
             
             <div class="achievements-grid">
                 <div class="achievement-card">
-                    <h4 class="achievement-title" data-key="achievements.items.0.title">Hospicová reforma</h4>
+                    <h4 class="achievement-title" data-key="achievements.items.0.title">Zmena financovania hospicovej a paliatívnej starostlivosti</h4>
                     <h5 class="achievement-subtitle" data-key="achievements.items.0.subtitle">Naštartovali a dotiahli sme systémovú zmenu vo financovaní hospicovej starostlivosti.</h5>
                     <p class="achievement-content" data-key="achievements.items.0.content">Dlhodobo sme upozorňovali na to, že výška úhrady za lôžkodňový výkon v hospicoch nepokrývala reálne náklady na starostlivosť - ani personálne, ani prevádzkové. Vďaka spoločnému úsiliu odborníkov, organizácií a ľudí z praxe sa podarilo otvoriť dialóg, ktorý viedol k navýšeniu tejto úhrady zo 100 na 230 eur za lôžkodeň.</p>
                 </div>
                 <div class="achievement-card">
-                    <h4 class="achievement-title" data-key="achievements.items.1.title">Spojili sme 40 organizácií voči zákonu o MVO</h4>
+                    <h4 class="achievement-title" data-key="achievements.items.1.title">Spojili sme 40 organizácií voči zákonu o MNO</h4>
                     <p class="achievement-content" data-key="achievements.items.1.content">Pri kampani proti prijatiu návrhu zákona o mimovládnych neziskových organizáciách sme spojili približne 40 pomáhajúcich organizácií, ktoré sa rozhodli spoločne reagovať na tému, ktorá sa ich priamo dotýka.</p>
                 </div>
                 <div class="achievement-card">
-                    <h4 class="achievement-title" data-key="achievements.items.2.title">Aktívne sme vystúpili proti zavedeniu tzv. transakčnej dane pre MVO</h4>
+                    <h4 class="achievement-title" data-key="achievements.items.2.title">Aktívne sme vystúpili proti zavedeniu tzv. transakčnej dane pre MNO</h4>
                     <p class="achievement-content" data-key="achievements.items.2.content">Aj vďaka spoločnej intervencii a advokácii sa podarilo otvoriť verejnú diskusiu o dopadoch tohto opatrenia na služby, ktoré mnohí ľudia denne potrebujú.</p>
                 </div>
                 <div class="achievement-card">
-                    <h4 class="achievement-title" data-key="achievements.items.3.title">Zastali sme sa princípu 2 % z dane pre MVO</h4>
+                    <h4 class="achievement-title" data-key="achievements.items.3.title">Zastali sme sa asignácie 2 % z dane pre MNO</h4>
                     <p class="achievement-content" data-key="achievements.items.3.content">V roku 2024 sme sa podieľali na komunikácii a koordinácii úsilia o zachovanie mechanizmu asignácie 2% ako stabilného a spravodlivého zdroja podpory naprieč celým sektorom.</p>
                 </div>
             </div>
@@ -146,7 +202,7 @@
                             <h5 data-key="whySupport.tagline">Pomáhame tým, ktorí pomáhajú.</h5>
                             <div class="divider-small"></div>
                         </div>
-                        <button class="btn btn-primary" data-key="nav.support">Podporte nás</button>
+                        <button class="btn btn-primary btn-large" data-key="nav.support" onclick="showIBAN()">Podporte nás</button>
                     </div>
                 </div>
             </div>
@@ -163,8 +219,8 @@
             </div>
             
             <div class="button-center">
-                <button class="btn btn-primary" data-key="buttons.addOrganization">Pridať organizáciu</button>
-                <button class="btn btn-secondary" data-key="buttons.viewAll">Zobraziť všetky</button>
+                <button class="btn btn-primary btn-large" data-key="buttons.addOrganization" onclick="openJoinForm()">Pridať organizáciu</button>
+                <button class="btn btn-secondary btn-large" data-key="buttons.viewAll">Zobraziť všetky</button>
             </div>
         </div>
     </section>
@@ -188,8 +244,64 @@
                         <h4 class="newsletter-title" data-key="footer.newsletter">Newsletter</h4>
                         <div class="divider-small"></div>
                         <p class="newsletter-text" data-key="footer.newsletterText">Prihláste sa na odber noviniek z oblasti zdravotnej a sociálnej starostlivosti.</p>
-                        <input type="email" class="email-input" placeholder="Váš email" data-placeholder-key="footer.emailPlaceholder">
-                        <button class="btn btn-newsletter" data-key="footer.subscribe">Prihlásiť sa</button>
+                        <form id="newsletter-form" onsubmit="submitNewsletter(event)">
+                            <input type="email" id="newsletter-email" class="email-input" placeholder="Váš email" data-placeholder-key="footer.emailPlaceholder" required>
+                            <button type="submit" class="btn btn-newsletter" data-key="footer.subscribe">Prihlásiť sa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h3 class="section-title" data-key="faq.title">Často kladené otázky</h3>
+            <div class="divider"></div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(0)">
+                        <h4 data-key="faq.items.0.question">Ako sa stať inštitucionálnym darcom/kyňou?</h4>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-0">
+                        <p data-key="faq.items.0.answer">Pridajte sa do komunity, ktorej nie sú ľudia v núdzi ľahostajní a meňte svet k lepšiemu. Kontaktujte našu manažérku pre právnické osoby: Jozefína Fekiačová<br>e-mail: <a href="mailto:fekiacova@platformanezabudnuti.sk">fekiacova@platformanezabudnuti.sk</a><br>t.číslo: +421 948 953 293</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
+                        <h4 data-key="faq.items.1.question">Ako sa stať členom Platformy?</h4>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-1">
+                        <p data-key="faq.items.1.answer">Pokiaľ sú Vám blízke naše hodnoty a chcete sa stať členom alebo pridruženým členom platformy pomáhajúcich organizácií, vyplňte <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1" target="_blank">nasledujúci formulár</a> a následne Vás budeme kontaktovať. Ďakujeme.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
+                        <h4 data-key="faq.items.2.question">GDPR/Ochrana osobných údajov</h4>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer gdpr-content" id="faq-answer-2">
+                        <div data-key="faq.items.2.answer">
+                            <p><strong>Kto sme</strong><br>
+                            Sme Platforma pomáhajúcich organizácií - nezabudnutí, ktorá združuje občianske združenia, mimovládne neziskové organizácie, nadácie a občianske iniciatívy pôsobiace v sociálnej a zdravotnej oblasti. Adresa našej webovej stránky je <a href="https://www.platformanezabudnuti.sk">www.platformanezabudnuti.sk</a>. Majiteľom domény a hostingu pre webovú stránku je občianske združenie URBANA.</p>
+                            
+                            <p>Sme spracovateľom vašich osobných údajov, ak ste nám ich poskytli. Znamená to, že zodpovedáme za ich ochranu a spôsob spracovania. Dbáme na to, aby sme vaše osobné údaje spracúvali v súlade s príslušnými právnymi predpismi (najmä Zákon o ochrane osobných údajov a Nariadenie o ochrane osobných údajov tzv. GDPR) a týmito informáciami.</p>
+                            
+                            <p><strong>Aké osobné údaje spracovávame?</strong><br>
+                            • Spracovávame vaše meno, priezvisko, telefónne číslo a e-mailovú adresu.<br>
+                            • V niektorých prípadoch spracovávame aj vašu adresu prípadne ďalšie osobné či pracovné kontaktné údaje.</p>
+                            
+                            <p><strong>Za akým účelom spracúvame vaše osobné údaje?</strong><br>
+                            • Informovanie o našich aktivitách prostredníctvom posielania e-mailov a/alebo za účelom odpovedania na otázky, ktoré ste nám priamo zaslali.<br>
+                            • Správa našej webovej stránky s cieľom zobraziť obsah stránky a účtov čo najefektívnejšie.</p>
+                            
+                            <p>Pokiaľ si chcete ktorékoľvek z práv uplatniť, pošlite nám, prosím, e-mail na <a href="mailto:info@platformanezabudnuti.sk">info@platformanezabudnuti.sk</a>.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,32 +315,23 @@
                     <h3 class="footer-logo">nezabudnutí.</h3>
                     <p class="footer-description">Platforma pomáhajúcich organizácií - nezabudnutí. Spájame a ochraňujeme tých, ktorí robia rozdiel v teréne.</p>
                     <div class="footer-operator" data-key="footer.operatorInfo">Prevádzkovateľ a správca: Urbana, Račianska 1579/88B, 831 02 Bratislava-Nové Mesto</div>
-                </div>
-                
-                <div class="footer-contact">
-                    <h4 class="footer-heading" data-key="footer.contact">Kontakt</h4>
-                    <ul class="footer-contact-list">
-                        <li>info@nezabudnuti.org</li>
-                        <li>+421 123 456 789</li>
-                        <li data-key="footer.address">Bratislava, Slovensko</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4 class="footer-heading" data-key="nav.about">O platforme</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="#about" data-key="nav.about">O platforme</a></li>
-                        <li><a href="#join" data-key="nav.join">Pridajte sa k nám</a></li>
-                        <li><a href="#members" data-key="nav.members">Členovia</a></li>
-                        <li><a href="#" data-key="footer.gdpr">GDPR a cookies</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-copyright" data-key="footer.copyright">© 2025 nezabudnutí. Všetky práva vyhradené.</div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                    
+                    <div class="social-media">
+                        <h4 class="footer-heading">Sledujte nás</h4>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/asoci%C3%A1cia-hospicovej-a-paliat%C3%ADvnej-starostlivosti-slovenska/" target="_blank" aria-label="LinkedIn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.facebook.com/share/175unse7H4/" target="_blank" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/nezabudnuti.sk?igsh=MWd1ZmNlcXEzcHhzbA==" target="_blank" aria-label="Instagram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                        </div>
