@@ -1,3 +1,12 @@
+/**
+ * nezabudnutí. - Platform of Helping Organizations
+ * JavaScript functionality for bilingual website
+ * @version 1.0.0
+ * @author Platform nezabudnutí
+ */
+
+'use strict';
+
 // Language translations object
 const translations = {
     sk: {
@@ -24,7 +33,7 @@ const translations = {
         // Vision section
         vision: {
             title: "Naša vízia",
-            content: "Veríme v spoločnosť, kde pomoc nie je výnimkou, ale právom. Kde každý človek má prístup k starostlivosti – bez ohľadu na to, kde žije či koľko má rokov."
+            content: "Veríme v spoločnosť, kde pomoc nie je výnimkou, ale právom. Kde každý človek má prístup k starostlivosti – bez ohľad na to, kde žije či koľko má rokov."
         },
         // Values section
         values: {
@@ -112,7 +121,7 @@ const translations = {
                 },
                 {
                     question: "Ako sa stať členom Platformy?",
-                    answer: "Pokiaľ sú Vám blízke naše hodnoty a chcete sa stať členom alebo pridruženým členom platformy pomáhajúcich organizácií, vyplňte <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1\" target=\"_blank\">nasledujúci formulár</a> a následne Vás budeme kontaktovať. Ďakujeme."
+                    answer: "Pokiaľ sú Vám blízke naše hodnoty a chcete sa stať členom alebo pridruženým členom platformy pomáhajúcich organizácií, vyplňte <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1\" target=\"_blank\" rel=\"noopener noreferrer\">nasledujúci formulár</a> a následne Vás budeme kontaktovať. Ďakujeme."
                 },
                 {
                     question: "GDPR/Ochrana osobných údajov",
@@ -181,10 +190,14 @@ const translations = {
         // Members section
         members: {
             title: "Naše členské organizácie",
-            organizations: Array(6).fill(0).map((_, i) => ({
-                name: `Organizácia ${i + 1}`,
-                type: "Paliatívna starostlivosť"
-            }))
+            organizations: [
+                { name: "Asociácia hospicovej a paliatívnej starostlivosti Slovenska", type: "Paliatívna starostlivosť" },
+                { name: "Svetluška", type: "Sociálne služby" },
+                { name: "Vagus", type: "Duševné zdravie" },
+                { name: "Liga za duševné zdravie", type: "Duševné zdravie" },
+                { name: "Nádej pre život", type: "Zdravotná starostlivosť" },
+                { name: "Krídla nádeji", type: "Sociálne služby" }
+            ]
         }
     },
     // English translations
@@ -300,7 +313,7 @@ const translations = {
                 },
                 {
                     question: "How to become a Platform member?",
-                    answer: "If our values are close to you and you want to become a member or associate member of the platform of helping organizations, fill out the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1\" target=\"_blank\">following form</a> and we will contact you. Thank you."
+                    answer: "If our values are close to you and you want to become a member or associate member of the platform of helping organizations, fill out the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1\" target=\"_blank\" rel=\"noopener noreferrer\">following form</a> and we will contact you. Thank you."
                 },
                 {
                     question: "GDPR/Personal Data Protection",
@@ -369,45 +382,56 @@ const translations = {
         // Members section
         members: {
             title: "Our member organizations",
-            organizations: Array(6).fill(0).map((_, i) => ({
-                name: `Organization ${i + 1}`,
-                type: "Palliative Care"
-            }))
+            organizations: [
+                { name: "Association of Hospice and Palliative Care Slovakia", type: "Palliative Care" },
+                { name: "Svetluška", type: "Social Services" },
+                { name: "Vagus", type: "Mental Health" },
+                { name: "League for Mental Health", type: "Mental Health" },
+                { name: "Hope for Life", type: "Healthcare" },
+                { name: "Wings of Hope", type: "Social Services" }
+            ]
         }
     }
 };
 
-// Current language - defaults to Slovak
+// Global variables
 let currentLanguage = 'sk';
+const IBAN = 'SK5609000000005232852272';
+const JOIN_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfnGQHNQ-7xbyTXAksHqVwxeM3wGecepG8sLgzm5dW17zN3iQ/viewform?pli=1';
 
-// Function to change language
+/**
+ * Change website language
+ * @param {string} language - Language code ('sk' or 'en')
+ */
 function changeLanguage(language) {
+    if (!translations[language]) {
+        console.error(`Language ${language} not supported`);
+        return;
+    }
+
     currentLanguage = language;
     
     // Update language toggle styling
-    document.getElementById('lang-sk').classList.toggle('active', language === 'sk');
-    document.getElementById('lang-en').classList.toggle('active', language === 'en');
+    const skButton = document.getElementById('lang-sk');
+    const enButton = document.getElementById('lang-en');
+    
+    if (skButton && enButton) {
+        skButton.classList.toggle('active', language === 'sk');
+        enButton.classList.toggle('active', language === 'en');
+        
+        // Update ARIA attributes
+        skButton.setAttribute('aria-pressed', language === 'sk');
+        enButton.setAttribute('aria-pressed', language === 'en');
+    }
     
     // Update all elements with data-key attribute
     const elementsWithKey = document.querySelectorAll('[data-key]');
     elementsWithKey.forEach(element => {
         const key = element.getAttribute('data-key');
-        const keyParts = key.split('.');
+        const translation = getTranslation(key, language);
         
-        // Get the translation by traversing the object with the key parts
-        let translation = translations[language];
-        for (const part of keyParts) {
-            if (translation && translation[part] !== undefined) {
-                translation = translation[part];
-            } else {
-                translation = null;
-                break;
-            }
-        }
-        
-        // Update element content if translation found
         if (translation !== null) {
-            if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+            if (element.hasAttribute('placeholder') || element.hasAttribute('data-placeholder-key')) {
                 element.placeholder = translation;
             } else {
                 element.textContent = translation;
@@ -415,30 +439,106 @@ function changeLanguage(language) {
         }
     });
     
-    // Render dynamic content
+    // Update dynamic content sections
+    updateAchievements();
+    updateFAQ();
     renderMembers();
     renderEvents();
+    
+    // Update document language attribute
+    document.documentElement.lang = language;
 }
 
-// Render member organization cards
+/**
+ * Get translation by key path
+ * @param {string} key - Translation key path (e.g., 'nav.about')
+ * @param {string} language - Language code
+ * @returns {string|null} Translation text or null if not found
+ */
+function getTranslation(key, language) {
+    const keyParts = key.split('.');
+    let translation = translations[language];
+    
+    for (const part of keyParts) {
+        if (translation && translation[part] !== undefined) {
+            translation = translation[part];
+        } else {
+            return null;
+        }
+    }
+    
+    return translation;
+}
+
+/**
+ * Update achievements section content
+ */
+function updateAchievements() {
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    const achievements = translations[currentLanguage].achievements.items;
+    
+    achievementCards.forEach((card, index) => {
+        if (achievements[index]) {
+            const title = card.querySelector('.achievement-title');
+            const subtitle = card.querySelector('.achievement-subtitle');
+            const content = card.querySelector('.achievement-content');
+            
+            if (title) title.textContent = achievements[index].title;
+            if (subtitle) subtitle.textContent = achievements[index].subtitle || '';
+            if (content) content.textContent = achievements[index].content;
+        }
+    });
+}
+
+/**
+ * Update FAQ section content
+ */
+function updateFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqData = translations[currentLanguage].faq.items;
+    
+    faqItems.forEach((item, index) => {
+        if (faqData[index]) {
+            const question = item.querySelector('.faq-question h3');
+            const answer = item.querySelector('.faq-answer');
+            
+            if (question) question.textContent = faqData[index].question;
+            if (answer) {
+                // For GDPR section, preserve HTML structure
+                if (index === 2) {
+                    answer.innerHTML = `<div>${faqData[index].answer}</div>`;
+                } else {
+                    answer.innerHTML = `<p>${faqData[index].answer}</p>`;
+                }
+            }
+        }
+    });
+}
+
+/**
+ * Render member organization cards
+ */
 function renderMembers() {
     const membersGrid = document.querySelector('.members-grid');
+    if (!membersGrid) return;
+    
     const organizations = translations[currentLanguage].members.organizations;
     
     // Clear existing content
     membersGrid.innerHTML = '';
     
     // Create and add member cards
-    organizations.forEach((org, index) => {
+    organizations.forEach((org) => {
         const memberCard = document.createElement('div');
         memberCard.className = 'member-card';
+        memberCard.setAttribute('role', 'listitem');
         
         memberCard.innerHTML = `
             <div class="member-info">
-                <div class="member-icon">${index + 1}</div>
+                <div class="member-icon" aria-hidden="true">${org.name.charAt(0)}</div>
                 <div>
-                    <div class="member-name">${org.name}</div>
-                    <div class="member-type">${org.type}</div>
+                    <div class="member-name">${escapeHtml(org.name)}</div>
+                    <div class="member-type">${escapeHtml(org.type)}</div>
                 </div>
             </div>
         `;
@@ -447,9 +547,13 @@ function renderMembers() {
     });
 }
 
-// Render events with expansion functionality
+/**
+ * Render events with expansion functionality
+ */
 function renderEvents() {
     const eventsList = document.querySelector('.events-list');
+    if (!eventsList) return;
+    
     const events = translations[currentLanguage].events.list;
     const readMoreText = translations[currentLanguage].buttons.readMore;
     
@@ -460,13 +564,447 @@ function renderEvents() {
     events.forEach((event, index) => {
         const eventItem = document.createElement('div');
         eventItem.className = 'event-item';
+        eventItem.setAttribute('role', 'listitem');
         
         const hasExpandedContent = event.expandedContent && event.expandedContent.trim();
         
         eventItem.innerHTML = `
-            <div class="event-date">${event.date}</div>
+            <div class="event-date">${escapeHtml(event.date)}</div>
             <div class="event-content">
-                <h5 class="event-title">${event.title}</h5>
-                <p class="event-description">${event.description}</p>
+                <h3 class="event-title">${escapeHtml(event.title)}</h3>
+                <p class="event-description">${escapeHtml(event.description)}</p>
                 ${hasExpandedContent ? `
-                    <div class
+                    <div class="event-expanded" id="event-expanded-${index}" style="display: none;" aria-hidden="true">
+                        <p>${escapeHtml(event.expandedContent)}</p>
+                    </div>
+                    <button class="event-read-more" onclick="toggleEvent(${index})" 
+                            data-more="${escapeHtml(readMoreText)}" 
+                            data-less="${currentLanguage === 'sk' ? 'Skryť' : 'Hide'}"
+                            aria-expanded="false" aria-controls="event-expanded-${index}">
+                        ${escapeHtml(readMoreText)}
+                    </button>
+                ` : ''}
+            </div>
+        `;
+        
+        eventsList.appendChild(eventItem);
+    });
+}
+
+/**
+ * Toggle event expansion
+ * @param {number} index - Event index
+ */
+function toggleEvent(index) {
+    const expandedDiv = document.getElementById(`event-expanded-${index}`);
+    const readMoreButton = expandedDiv ? expandedDiv.nextElementSibling : null;
+    
+    if (!expandedDiv || !readMoreButton) return;
+    
+    const isExpanded = expandedDiv.style.display === 'block';
+    
+    if (isExpanded) {
+        expandedDiv.style.display = 'none';
+        expandedDiv.setAttribute('aria-hidden', 'true');
+        readMoreButton.textContent = readMoreButton.getAttribute('data-more');
+        readMoreButton.setAttribute('aria-expanded', 'false');
+    } else {
+        expandedDiv.style.display = 'block';
+        expandedDiv.setAttribute('aria-hidden', 'false');
+        readMoreButton.textContent = readMoreButton.getAttribute('data-less');
+        readMoreButton.setAttribute('aria-expanded', 'true');
+    }
+}
+
+/**
+ * Show IBAN modal
+ */
+function showIBAN() {
+    const modal = document.getElementById('iban-modal');
+    if (modal) {
+        modal.style.display = 'block';
+        modal.setAttribute('aria-hidden', 'false');
+        
+        // Focus on the modal content for accessibility
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.focus();
+        }
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+/**
+ * Close modal
+ * @param {Event} [event] - Click event (optional)
+ */
+function closeModal(event) {
+    const modal = document.getElementById('iban-modal');
+    if (!modal) return;
+    
+    // Only close if clicking on modal backdrop or no event provided
+    if (!event || event.target === modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+        
+        // Return focus to the button that opened the modal
+        const supportButton = document.querySelector('button[onclick="showIBAN()"]');
+        if (supportButton) {
+            supportButton.focus();
+        }
+    }
+}
+
+/**
+ * Copy IBAN to clipboard
+ */
+async function copyIBAN() {
+    try {
+        // Try modern clipboard API first
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(IBAN);
+            showCopyNotification();
+        } else {
+            // Fallback to legacy method
+            copyIBANFallback();
+        }
+    } catch (error) {
+        console.error('Copy failed:', error);
+        copyIBANFallback();
+    }
+}
+
+/**
+ * Fallback copy method using document.execCommand
+ */
+function copyIBANFallback() {
+    const textArea = document.createElement('textarea');
+    textArea.value = IBAN;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    textArea.style.left = '-9999px';
+    textArea.setAttribute('aria-hidden', 'true');
+    
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showCopyNotification();
+    } catch (error) {
+        console.error('Fallback copy failed:', error);
+        // Show IBAN in alert as last resort
+        alert(`IBAN: ${IBAN}`);
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+/**
+ * Show copy notification
+ */
+function showCopyNotification() {
+    const notification = document.createElement('div');
+    notification.textContent = currentLanguage === 'sk' ? 'IBAN skopírovaný!' : 'IBAN copied!';
+    notification.setAttribute('role', 'status');
+    notification.setAttribute('aria-live', 'polite');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--soft-warm-rose);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        font-weight: 500;
+        font-family: Inter, sans-serif;
+        transition: opacity 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove notification
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 2000);
+}
+
+/**
+ * Open join form in new tab
+ */
+function openJoinForm() {
+    window.open(JOIN_FORM_URL, '_blank', 'noopener,noreferrer');
+}
+
+/**
+ * Smooth scroll to about section
+ */
+function scrollToAbout() {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+        aboutSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Focus the section for accessibility
+        aboutSection.focus({ preventScroll: true });
+    }
+}
+
+/**
+ * Submit newsletter form
+ * @param {Event} event - Form submit event
+ */
+function submitNewsletter(event) {
+    event.preventDefault();
+    
+    const emailInput = document.getElementById('newsletter-email');
+    const form = document.getElementById('newsletter-form');
+    
+    if (!emailInput || !form) return;
+    
+    const email = emailInput.value.trim();
+    
+    // Basic email validation
+    if (!isValidEmail(email)) {
+        showEmailError(currentLanguage === 'sk' 
+            ? 'Prosím, zadajte platný email.' 
+            : 'Please enter a valid email.');
+        return;
+    }
+    
+    // Clear any previous errors
+    clearEmailError();
+    
+    // Create mailto link
+    const subject = encodeURIComponent('Newsletter subscription');
+    const body = encodeURIComponent(`Please add this email to the newsletter: ${email}`);
+    
+    // Open email client
+    window.location.href = `mailto:info@platformanezabudnuti.sk?subject=${subject}&body=${body}`;
+    
+    // Show confirmation
+    showNewsletterConfirmation(form);
+}
+
+/**
+ * Validate email format
+ * @param {string} email - Email to validate
+ * @returns {boolean} True if valid
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+/**
+ * Show email validation error
+ * @param {string} message - Error message
+ */
+function showEmailError(message) {
+    const errorElement = document.getElementById('email-error');
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        errorElement.setAttribute('aria-live', 'polite');
+    }
+}
+
+/**
+ * Clear email validation error
+ */
+function clearEmailError() {
+    const errorElement = document.getElementById('email-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        errorElement.textContent = '';
+    }
+}
+
+/**
+ * Show newsletter confirmation
+ * @param {HTMLElement} form - Form element
+ */
+function showNewsletterConfirmation(form) {
+    const originalHTML = form.innerHTML;
+    
+    form.innerHTML = `<p style="color: var(--soft-warm-rose); font-weight: 500; text-align: center;">${
+        currentLanguage === 'sk' 
+            ? 'Ďakujeme! Váš email klient sa otvoril.' 
+            : 'Thank you! Your email client has opened.'
+    }</p>`;
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+        form.innerHTML = originalHTML;
+        // Re-add event listener
+        form.addEventListener('submit', submitNewsletter);
+    }, 3000);
+}
+
+/**
+ * Toggle FAQ item
+ * @param {number} index - FAQ index
+ */
+function toggleFAQ(index) {
+    const answer = document.getElementById(`faq-answer-${index}`);
+    const question = answer ? answer.previousElementSibling : null;
+    const arrow = question ? question.querySelector('.faq-arrow') : null;
+    
+    if (!answer || !question || !arrow) return;
+    
+    const isOpen = answer.style.display === 'block';
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-answer').forEach((faq, i) => {
+        if (i !== index && faq.style.display === 'block') {
+            faq.style.display = 'none';
+            const otherQuestion = faq.previousElementSibling;
+            const otherArrow = otherQuestion ? otherQuestion.querySelector('.faq-arrow') : null;
+            if (otherQuestion && otherArrow) {
+                otherQuestion.setAttribute('aria-expanded', 'false');
+                otherArrow.textContent = '▼';
+                otherArrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    });
+    
+    // Toggle current FAQ
+    if (isOpen) {
+        answer.style.display = 'none';
+        question.setAttribute('aria-expanded', 'false');
+        arrow.textContent = '▼';
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        answer.style.display = 'block';
+        question.setAttribute('aria-expanded', 'true');
+        arrow.textContent = '▲';
+        arrow.style.transform = 'rotate(180deg)';
+    }
+}
+
+/**
+ * Escape HTML to prevent XSS
+ * @param {string} text - Text to escape
+ * @returns {string} Escaped text
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/**
+ * Initialize the website
+ */
+function init() {
+    // Set initial language
+    changeLanguage('sk');
+    
+    // Add event listeners
+    setupEventListeners();
+    
+    // Set focus management for accessibility
+    setupAccessibility();
+}
+
+/**
+ * Setup event listeners
+ */
+function setupEventListeners() {
+    // Modal event listeners
+    const modal = document.getElementById('iban-modal');
+    if (modal) {
+        // Close modal when clicking outside
+        modal.addEventListener('click', closeModal);
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+    }
+    
+    // Newsletter form
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', submitNewsletter);
+    }
+    
+    // Language toggle keyboard navigation
+    const langButtons = document.querySelectorAll('.lang-option');
+    langButtons.forEach(button => {
+        button.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                button.click();
+            }
+        });
+    });
+}
+
+/**
+ * Setup accessibility features
+ */
+function setupAccessibility() {
+    // Skip to main content link
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main';
+    skipLink.textContent = currentLanguage === 'sk' ? 'Preskočiť na hlavný obsah' : 'Skip to main content';
+    skipLink.className = 'visually-hidden';
+    skipLink.addEventListener('focus', () => {
+        skipLink.style.position = 'absolute';
+        skipLink.style.top = '10px';
+        skipLink.style.left = '10px';
+        skipLink.style.zIndex = '10000';
+        skipLink.style.padding = '10px';
+        skipLink.style.background = 'var(--soft-warm-rose)';
+        skipLink.style.color = 'white';
+        skipLink.style.textDecoration = 'none';
+        skipLink.style.borderRadius = '4px';
+    });
+    skipLink.addEventListener('blur', () => {
+        skipLink.className = 'visually-hidden';
+    });
+    
+    document.body.insertBefore(skipLink, document.body.firstChild);
+    
+    // Add main landmark if not present
+    const main = document.querySelector('main');
+    if (main) {
+        main.id = 'main';
+        main.setAttribute('tabindex', '-1');
+    }
+}
+
+// DOM Content Loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+// Export functions for global access (for onclick handlers)
+window.changeLanguage = changeLanguage;
+window.showIBAN = showIBAN;
+window.closeModal = closeModal;
+window.copyIBAN = copyIBAN;
+window.openJoinForm = openJoinForm;
+window.scrollToAbout = scrollToAbout;
+window.submitNewsletter = submitNewsletter;
+window.toggleFAQ = toggleFAQ;
+window.toggleEvent = toggleEvent;
